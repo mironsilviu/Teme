@@ -7,11 +7,10 @@ public class Location {
     private String city;
 
 
-    public void adress(String street, int number, String city) {
+    public Location(String street, int number, String city) {
         this.street = street;
         this.number = number;
         this.city = city;
 
     }
-
 }

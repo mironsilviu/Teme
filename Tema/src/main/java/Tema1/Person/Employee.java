@@ -1,5 +1,7 @@
 package Tema1.Person;
 
+import Tema1.Hotel.Location;
+
 public class Employee extends Person {
 
     private String pozition;
@@ -12,5 +14,8 @@ public class Employee extends Person {
 
     }
 
-
+    @Override
+    public void setLocation(Location location) {
+        super.setLocation(location);
+    }
 }
