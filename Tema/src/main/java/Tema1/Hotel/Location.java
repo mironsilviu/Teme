@@ -13,4 +13,14 @@ public class Location {
         this.city = city;
 
     }
+
+    String getStreet() {
+        return street;
+    }
+
+    String getCity() {
+        return city;
+    }
+
+
 }

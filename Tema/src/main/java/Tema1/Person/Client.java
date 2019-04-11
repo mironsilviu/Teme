@@ -22,6 +22,11 @@ public class Client extends Person {
 
     @Override
     public void setLocation(Location location) {
-        super.setLocation(location);
+        Person.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + getFirstName() + " " + getLastName();
     }
 }

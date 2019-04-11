@@ -16,6 +16,6 @@ public class Employee extends Person {
 
     @Override
     public void setLocation(Location location) {
-        super.setLocation(location);
+        Person.location = location;
     }
 }
