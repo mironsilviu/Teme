@@ -2,8 +2,6 @@ package repository;
 
 import model.hotel.Hotel;
 import model.hotel.Location;
-import model.hotel.Room;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

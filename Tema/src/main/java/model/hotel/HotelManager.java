@@ -1,5 +1,6 @@
 package model.hotel;
 
+import model.person.Gender;
 import model.person.Person;
 
 public class HotelManager extends Person {
@@ -8,6 +9,11 @@ public class HotelManager extends Person {
     @Override
     public final void setLocation(Location location) {
         super.location = location;
+    }
+
+    @Override
+    public void setGender(Gender gender) {
+        super.gender = gender;
     }
 
     @Override

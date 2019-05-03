@@ -8,8 +8,11 @@ public abstract class Person {
     private String firstName;
     private String lastName;
     protected Location location;
+    protected Gender gender;
 
     public abstract void setLocation(Location location);
+
+    public abstract void setGender(Gender gender);
 
     public abstract String getAddress();
 
@@ -24,11 +27,11 @@ public abstract class Person {
         this.location = location;
     }
 
-   protected String getFirstName() {
+    protected String getFirstName() {
         return firstName;
     }
 
-    protected String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 

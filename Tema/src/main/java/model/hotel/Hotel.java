@@ -1,17 +1,13 @@
 package model.hotel;
 
-
 import model.Function;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Hotel {
 
     private final String name;
     private int numberOfStars;
     public Room room;
-    private final Location location;
+    public final Location location;
 
 
 

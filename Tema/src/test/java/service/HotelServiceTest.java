@@ -3,17 +3,14 @@ package service;
 import model.hotel.Hotel;
 import model.hotel.Location;
 import model.hotel.Room;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import repository.HotelRepository;
-
-import java.awt.print.Book;
-
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
@@ -45,6 +42,14 @@ public class HotelServiceTest {
 
 
     }
+    @Test(expected = NullPointerException.class)
+    public void shouldNot_ValidateAndAddHotel_ForNullHotel(){
+
+        Hotel hotel = null;
+
+        assertNull(hotel.getName());
+
+    }
 
     @Test
     public void shouldNot_ValidateAndAddHotel_ForNullRoom() {
@@ -52,7 +57,7 @@ public class HotelServiceTest {
         Hotel hotel = new Hotel("Magnolia", new Location("Grigorescu", 10, "Cluj"));
 
 
-        doReturn(false).when(hotelRepository).add(any(Hotel.class));
+       // doReturn(false).when(hotelRepository).add(any(Hotel.class));
 
         String response = hotelService.validateAndAddHotel(hotel);
 
@@ -67,7 +72,7 @@ public class HotelServiceTest {
         Hotel hotel = new Hotel("Magnolia", new Location("Grigorescu", 10, "Cluj"));
         hotel.setRoom(new Room(0, 0));
 
-        doReturn(true).when(hotelRepository).add(any(Hotel.class));
+      //  doReturn(true).when(hotelRepository).add(any(Hotel.class));
 
         String response = hotelService.validateAndAddHotel(hotel);
 

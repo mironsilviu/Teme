@@ -5,8 +5,12 @@ import model.hotel.Location;
 public class Client extends Person {
 
     private String userName;
-    private String password;
+    private final String password;
 
+    public String getPassword() {
+        return password;
+    }
+    @Deprecated
     public Client(String firstName, String lastName, String userName, String password) {
         super(firstName, lastName);
         this.userName = userName;
@@ -23,6 +27,11 @@ public class Client extends Person {
     @Override
     public final void setLocation(Location location) {
         super.location = location;
+    }
+
+    @Override
+    public void setGender(Gender gender) {
+        super.gender = gender;
     }
 
     @Override

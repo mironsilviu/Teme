@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface IHotelRepository {
 
-      boolean add(Hotel hotel);
-     boolean remove(Hotel hotel);
-     List<Hotel> listHotels();
+    boolean add(Hotel hotel);
+
+    boolean remove(Hotel hotel);
+
+    List<Hotel> listHotels();
 
 }
