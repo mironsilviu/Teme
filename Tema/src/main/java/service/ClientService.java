@@ -39,7 +39,7 @@ public class ClientService {
     }
 
     public List<Client> getClient() {
-        return clientRepository.listClient();
+        return clientRepository.list();
     }
 
 }

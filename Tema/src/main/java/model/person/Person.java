@@ -1,11 +1,13 @@
 package model.person;
 
+import lombok.Getter;
 import model.hotel.Location;
 
 
 public abstract class Person {
-
+    @Getter
     private String firstName;
+    @Getter
     private String lastName;
     protected Location location;
     protected Gender gender;
@@ -16,6 +18,10 @@ public abstract class Person {
 
     public abstract String getAddress();
 
+    public Person (){
+
+    }
+
     protected Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,14 +31,6 @@ public abstract class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.location = location;
-    }
-
-    protected String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
 }

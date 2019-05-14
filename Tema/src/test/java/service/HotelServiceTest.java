@@ -3,19 +3,23 @@ package service;
 import model.hotel.Hotel;
 import model.hotel.Location;
 import model.hotel.Room;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import repository.HotelRepository;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@RunWith(JUnitPlatform.class)
 public class HotelServiceTest {
 
     private HotelService hotelService;
@@ -23,7 +27,7 @@ public class HotelServiceTest {
     @Mock
     private HotelRepository hotelRepository;
 
-    @Before
+    @BeforeEach
     public void setup() {
         hotelService = new HotelService(hotelRepository);
     }

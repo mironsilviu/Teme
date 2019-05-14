@@ -14,13 +14,15 @@ import service.HotelService;
 import service.exception.ValidationException;
 
 
+import java.io.*;
+
 public class Main {
 
     private static Logger logger = Logger.getLogger(Main.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        @SuppressWarnings("deprecation")
+
         Client client1 = new Client("Silviu", "Miron", "SilviuMiron", "qwerty");
         Client client2 = new Client("Alexandru", "Popovici", "AlexPopovici",
                 "12345678", new Location("Mihai Viteazu", 4, "Sibiu"));
@@ -56,35 +58,115 @@ public class Main {
 
         EmployeeRepository employeeRepository = new EmployeeRepository();
         EmployeeService employeeService = new EmployeeService(employeeRepository);
-       // Employee employee2 = null;
+        // Employee employee2 = null;
         try {
             employeeService.validateAndAddEmployee(employee1);
         } catch (ValidationException e) {
             logger.error(e.displayError(), e);
         }
-Client client3 = new Client("a","b","c","d",new Location("r",5,"e"));
         ClientRepository clientRepository = new ClientRepository();
         ClientService clientService = new ClientService(clientRepository);
         try {
             clientService.validateAndAddClient(client1);
         } catch (ValidationException e) {
-            logger.error(e.displayError(),e);
+            logger.error(e.displayError(), e);
         }
         try {
             clientService.validateAndAddClient(client2);
         } catch (ValidationException e) {
-            logger.error(e.displayError(),e);
+            logger.error(e.displayError(), e);
         }
         try {
-            clientService.validateAndRemoveClient(client1,"qwerty");
+            clientService.validateAndRemoveClient(client1, "qwerty");
         } catch (ValidationException e) {
             logger.error(e.displayError());
         }
-//        try {
+
+
+        try (BufferedWriter employeeIO = new BufferedWriter(new FileWriter("Employee.txt"))) {
+            String[] in = new String[3];
+            in[0] = employee1.getFirstName();
+            in[1] = employee1.getLastName();
+            in[2] = employee1.getPosition();
+
+            for (int i = 0; i < 3; i++) {
+                employeeIO.write(in[i]);
+                employeeIO.write(", ");
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        }
+
+
+        FileWriter clientIO = null;
+
+        try {
+            clientIO = new FileWriter("out.txt");
+
+            String[] in = new String[3];
+            in[0] = client1.getFirstName();
+            in[1] = client1.getLastName();
+            in[2] = client1.getPassword();
+
+            for (int i = 0; i < 3; i++) {
+                clientIO.write(in[i]);
+                clientIO.write(", ");
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (clientIO != null) {
+                clientIO.close();
+            }
+        }
+
+        //        try {
 //            clientService.validateAndAddClient(client3);
 //        } catch (ValidationException e) {
 //            logger.error(e.displayError(),e);
 //        }
+
+
+//        try {
+//            //  BufferedOutputStream f = new BufferedOutputStream(new FileOutputStream("Client.txt"));
+//            ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream("Client.txt"));
+//
+//
+//            o.writeObject(client1);
+//
+//            o.flush();
+//            o.close();
+//            // f.close();
+//
+//            //  BufferedInputStream fi = new BufferedInputStream(new FileInputStream("Client.txt"));
+//            ObjectInputStream oi = new ObjectInputStream(new FileInputStream("Client.txt"));
+//
+//
+//            Client clientReturn1 = (Client) oi.readObject();
+//
+//            oi.close();
+//
+//            System.out.println(clientReturn1.toString());
+//
+//
+//
+//            // fi.close();
+//
+//        } catch (FileNotFoundException e) {
+//            System.out.println("File not found");
+//        } catch (IOException e) {
+//            System.out.println("Error initializing stream");
+//        } catch (ClassNotFoundException e) {
+//
+//            e.printStackTrace();
+//        }
+
 
     }
 }

@@ -1,11 +1,12 @@
 package model.person;
 
 
+import lombok.Getter;
 import model.hotel.Hotel;
 import model.hotel.Location;
 
 public class Employee extends Person {
-
+@Getter
     private String position;
     private int salary;
     Hotel workDetails;
@@ -22,10 +23,9 @@ public class Employee extends Person {
         super(firstName, lastName);
         this.position = position;
         this.salary = salary;
+        this.workDetails = workDetails;
 
     }
-
-
 
     @Override
     public final void setLocation(Location location) {
@@ -47,7 +47,6 @@ public class Employee extends Person {
         return "Name: " + getFirstName() + " " + getLastName();
     }
 
-//    public void setWorkDetails(Hotel hotel) {
-//        this.workDetails = hotel;
-//    }
+
+
 }

@@ -2,15 +2,19 @@ package model.hotel;
 
 import model.Function;
 
-public class Hotel {
+import java.io.Serializable;
+
+/**
+ * This class will help us to set a hotel with all the details that a hotel need in order to be added to the list of hotels
+ */
+
+public class Hotel implements Serializable {
 
     private final String name;
     private int numberOfStars;
     public Room room;
     public final Location location;
-
-
-
+    private static final long serialVersionUID = 1L;
 
     public Hotel(String name, Location location) {
         this.location = location;
@@ -41,7 +45,5 @@ public class Hotel {
     public String toString() {
         return "hotel: " + name + ", City " + location.getCity() + ", Street " + location.getStreet();
     }
-
-
 
 }

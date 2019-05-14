@@ -6,6 +6,10 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
+
 public class HotelRepository implements IHotelRepository, Search {
 
     private static Logger logger = Logger.getLogger(HotelRepository.class);

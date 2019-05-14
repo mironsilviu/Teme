@@ -6,7 +6,7 @@ import model.person.Employee;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRepository implements IEmployeeRepository{
+public class EmployeeRepository implements IPersonRepository<Employee> {
 
     private List<Employee> employeeList = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class EmployeeRepository implements IEmployeeRepository{
     }
 
     @Override
-    public List<Employee> listEmployee() {
+    public List<Employee> list() {
         return employeeList;
     }
 }

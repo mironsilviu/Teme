@@ -2,17 +2,16 @@ package repository;
 
 import model.hotel.Location;
 import model.person.Client;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-@RunWith(MockitoJUnitRunner.class)
+
+
 public class ClientRepositoryTest {
 
     private ClientRepository clientRepository;
 
-    @Before
+    @BeforeEach
     public void setup(){
         clientRepository = new ClientRepository();
     }

@@ -1,9 +1,15 @@
 package model.hotel;
 
+import lombok.Getter;
+
+
+@Getter
 public class Location {
 
     private String street;
+
     private int number;
+
     private String city;
 
 
@@ -14,17 +20,6 @@ public class Location {
 
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getCity() {
-        return city;
-    }
 
 
 }

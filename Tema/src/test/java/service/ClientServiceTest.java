@@ -2,20 +2,23 @@ package service;
 
 import model.hotel.Location;
 import model.person.Client;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import repository.ClientRepository;
 import service.exception.ValidationException;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
 
-@RunWith(MockitoJUnitRunner.class)
+
+@ExtendWith(MockitoExtension.class)
+@RunWith(JUnitPlatform.class)
 public class ClientServiceTest {
 
     private ClientService clientService;
@@ -23,7 +26,7 @@ public class ClientServiceTest {
     @Mock
     private ClientRepository clientRepository;
 
-    @Before
+    @BeforeEach
     public void setup() {
         clientService = new ClientService(clientRepository);
     }

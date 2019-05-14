@@ -41,7 +41,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployees() {
-        return employeeRepository.listEmployee();
+        return employeeRepository.list();
     }
 
 

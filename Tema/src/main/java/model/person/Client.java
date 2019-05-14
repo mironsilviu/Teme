@@ -1,16 +1,22 @@
 package model.person;
 
+import lombok.Getter;
 import model.hotel.Location;
 
-public class Client extends Person {
+import java.io.Serializable;
+
+public class Client extends Person implements Serializable {
 
     private String userName;
-    private final String password;
+    private static final String serialVersionUID = "UTF-8";
 
-    public String getPassword() {
-        return password;
+    @Getter
+    private String password;
+
+    public Client() {
+
     }
-    @Deprecated
+
     public Client(String firstName, String lastName, String userName, String password) {
         super(firstName, lastName);
         this.userName = userName;
