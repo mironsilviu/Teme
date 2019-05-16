@@ -3,8 +3,10 @@ package model.person;
 import lombok.Getter;
 import model.hotel.Location;
 
+import java.io.Serializable;
 
-public abstract class Person {
+
+public abstract class Person implements Serializable {
     @Getter
     private String firstName;
     @Getter
@@ -17,10 +19,6 @@ public abstract class Person {
     public abstract void setGender(Gender gender);
 
     public abstract String getAddress();
-
-    public Person (){
-
-    }
 
     protected Person(String firstName, String lastName) {
         this.firstName = firstName;

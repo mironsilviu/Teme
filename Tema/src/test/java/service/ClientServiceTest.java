@@ -34,7 +34,7 @@ public class ClientServiceTest {
     @Test
     public void should_ValidateAndAddClient_ForValidData() {
 
-        Client client = new Client("aaaaa", "bbbbb", "ccccc",
+        Client client = new Client("aaaaa", "bbbbb", 89,
                 "ddddd", new Location("qqqqq", 5, "Cluj"));
 
         doNothing().when(clientRepository).add(any(Client.class));
@@ -65,7 +65,7 @@ public class ClientServiceTest {
     @Test
     public void should_NotValidateAndAddClient_NameTooShort(){
 
-        Client client = new Client("aa", "bb", "ccccc",
+        Client client = new Client("aa", "bb", 89,
                 "ddddd", new Location("qqqqq", 5, "Cluj"));
 
         try {

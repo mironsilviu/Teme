@@ -23,8 +23,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-        Client client1 = new Client("Silviu", "Miron", "SilviuMiron", "qwerty");
-        Client client2 = new Client("Alexandru", "Popovici", "AlexPopovici",
+        Client client1 = new Client("Silviu", "Miron", 189072538, "qwerty");
+        Client client2 = new Client("Alexandru", "Popovici", 1896542545,
                 "12345678", new Location("Mihai Viteazu", 4, "Sibiu"));
         client1.setLocation(new Location("Eremia Grigorescu", 126, "Cluj"));
         client1.setGender(Gender.MALE);
@@ -126,46 +126,50 @@ public class Main {
             }
         }
 
-        //        try {
+//                try {
 //            clientService.validateAndAddClient(client3);
 //        } catch (ValidationException e) {
 //            logger.error(e.displayError(),e);
 //        }
 
 
-//        try {
-//            //  BufferedOutputStream f = new BufferedOutputStream(new FileOutputStream("Client.txt"));
-//            ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream("Client.txt"));
-//
-//
-//            o.writeObject(client1);
-//
-//            o.flush();
-//            o.close();
-//            // f.close();
-//
-//            //  BufferedInputStream fi = new BufferedInputStream(new FileInputStream("Client.txt"));
-//            ObjectInputStream oi = new ObjectInputStream(new FileInputStream("Client.txt"));
-//
-//
-//            Client clientReturn1 = (Client) oi.readObject();
-//
-//            oi.close();
-//
-//            System.out.println(clientReturn1.toString());
-//
-//
-//
-//            // fi.close();
-//
-//        } catch (FileNotFoundException e) {
-//            System.out.println("File not found");
-//        } catch (IOException e) {
-//            System.out.println("Error initializing stream");
-//        } catch (ClassNotFoundException e) {
-//
-//            e.printStackTrace();
-//        }
+        try {
+
+            FileOutputStream f = new FileOutputStream("Client.txt");
+            ObjectOutputStream o = new ObjectOutputStream(f);
+
+
+
+            o.writeObject(client1);
+            o.writeObject(client2);
+
+            o.flush();
+            o.close();
+            f.close();
+
+
+            FileInputStream fi = new FileInputStream("Client.txt");
+            ObjectInputStream oi = new ObjectInputStream(fi);
+
+
+            Client clientReturn1 = (Client) oi.readObject();
+            Client clientReturn2 = (Client) oi.readObject();
+            oi.close();
+            fi.close();
+
+            System.out.println(clientReturn1.toString());
+            System.out.println(clientReturn2.toString());
+
+
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+        }
 
 
     }

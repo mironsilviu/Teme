@@ -2,9 +2,11 @@ package model.hotel;
 
 import lombok.Getter;
 
+import java.io.Serializable;
+
 
 @Getter
-public class Location {
+public class Location implements Serializable {
 
     private String street;
 

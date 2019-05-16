@@ -17,7 +17,7 @@ public class ClientRepositoryTest {
     }
     @Test
     public void should_AddClient_ForValidData(){
-        Client client = new Client("aa", "bb", "ccccc",
+        Client client = new Client("aa", "bb", 89,
                 "ddddd", new Location("qqqqq", 5, "Cluj"));
 
         clientRepository.add(client);

@@ -3,30 +3,25 @@ package model.person;
 import lombok.Getter;
 import model.hotel.Location;
 
-import java.io.Serializable;
 
-public class Client extends Person implements Serializable {
+public class Client extends Person {
 
-    private String userName;
-    private static final String serialVersionUID = "UTF-8";
+    private long cnp;
+    private static final long serialVersionUID = 1L;
 
     @Getter
-    private String password;
+    private final String password;
 
-    public Client() {
-
-    }
-
-    public Client(String firstName, String lastName, String userName, String password) {
+    public Client(String firstName, String lastName, long cnp, String password) {
         super(firstName, lastName);
-        this.userName = userName;
+        this.cnp = cnp;
         this.password = password;
 
     }
 
-    public Client(String firstName, String lastName, String userName, String password, Location addLocation) {
+    public Client(String firstName, String lastName, long cnp, String password, Location addLocation) {
         super(firstName, lastName, addLocation);
-        this.userName = userName;
+        this.cnp = cnp;
         this.password = password;
     }
 
