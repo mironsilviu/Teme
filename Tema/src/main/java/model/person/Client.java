@@ -3,6 +3,8 @@ package model.person;
 import lombok.Getter;
 import model.hotel.Location;
 
+import java.util.Objects;
+
 
 public class Client extends Person {
 
@@ -23,6 +25,19 @@ public class Client extends Person {
         super(firstName, lastName, addLocation);
         this.cnp = cnp;
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return cnp == client.cnp;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cnp);
     }
 
     @Override

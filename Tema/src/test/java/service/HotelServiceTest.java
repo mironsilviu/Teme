@@ -3,23 +3,23 @@ package service;
 import model.hotel.Hotel;
 import model.hotel.Location;
 import model.hotel.Room;
-import org.junit.Test;
+import model.hotel.TypeOfRoom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repository.HotelRepository;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
-
 @ExtendWith(MockitoExtension.class)
-@RunWith(JUnitPlatform.class)
+
 public class HotelServiceTest {
 
     private HotelService hotelService;
@@ -36,23 +36,16 @@ public class HotelServiceTest {
     public void should_ValidateAndAddHotel_ForValidData() {
 
         Hotel hotel = new Hotel("Magnolia", new Location("Grigorescu", 10, "Cluj"));
-        hotel.setRoom(new Room(15, 20));
+        Room hiltonSingleRoom = new Room("Single Room", TypeOfRoom.SINGLE_ROOM);
+        List<Room> room = new ArrayList<>();
+        room.add(hiltonSingleRoom);
+        hotel.setRooms(room);
 
         doReturn(true).when(hotelRepository).add(any(Hotel.class));
 
         String response = hotelService.validateAndAddHotel(hotel);
 
         assertEquals("ADDED", response);
-
-
-    }
-    @Test(expected = NullPointerException.class)
-    public void shouldNot_ValidateAndAddHotel_ForNullHotel(){
-
-        Hotel hotel = null;
-
-        assertNull(hotel.getName());
-
     }
 
     @Test
@@ -60,28 +53,9 @@ public class HotelServiceTest {
 
         Hotel hotel = new Hotel("Magnolia", new Location("Grigorescu", 10, "Cluj"));
 
-
-       // doReturn(false).when(hotelRepository).add(any(Hotel.class));
-
         String response = hotelService.validateAndAddHotel(hotel);
 
-        assertEquals("SET NUMBER OF ROOM", response);
-
-
+        assertEquals("SET ROOM FIRST", response);
     }
 
-    @Test
-    public void shouldNot_ValidateAndAddHotel_ForNumberOfRoom0() {
-
-        Hotel hotel = new Hotel("Magnolia", new Location("Grigorescu", 10, "Cluj"));
-        hotel.setRoom(new Room(0, 0));
-
-      //  doReturn(true).when(hotelRepository).add(any(Hotel.class));
-
-        String response = hotelService.validateAndAddHotel(hotel);
-
-        assertEquals("SHOULD HAVE AT LEAST ONE ROOM", response);
-
-
-    }
 }

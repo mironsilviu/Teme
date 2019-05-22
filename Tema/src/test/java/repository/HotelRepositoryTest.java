@@ -4,8 +4,10 @@ import model.hotel.Hotel;
 import model.hotel.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class HotelRepositoryTest {

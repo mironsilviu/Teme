@@ -5,8 +5,6 @@ import model.person.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repository.ClientRepository;
@@ -18,7 +16,6 @@ import static org.mockito.Mockito.doNothing;
 
 
 @ExtendWith(MockitoExtension.class)
-@RunWith(JUnitPlatform.class)
 public class ClientServiceTest {
 
     private ClientService clientService;
@@ -50,7 +47,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void should_NotValidateAndAddClient_ForNullClient(){
+    public void should_NotValidateAndAddClient_ForNullClient() {
 
         Client client = null;
 
@@ -63,7 +60,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void should_NotValidateAndAddClient_NameTooShort(){
+    public void should_NotValidateAndAddClient_NameTooShort() {
 
         Client client = new Client("aa", "bb", 89,
                 "ddddd", new Location("qqqqq", 5, "Cluj"));

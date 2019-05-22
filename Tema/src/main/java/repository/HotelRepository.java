@@ -9,24 +9,40 @@ import java.util.List;
 /**
  * {@inheritDoc}
  */
-
 public class HotelRepository implements IHotelRepository, Search {
 
     private static Logger logger = Logger.getLogger(HotelRepository.class);
     private List<Hotel> hotelList = new ArrayList<>();
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param hotel
+     * @return a boolean if a hotel is added
+     */
     @Override
     public boolean add(Hotel hotel) {
         hotelList.add(hotel);
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param hotel
+     * @return a boolean if a hotel is removed
+     */
     @Override
     public boolean remove(Hotel hotel) {
         hotelList.remove(hotel);
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return the list of hotels
+     */
     @Override
     public List<Hotel> listHotels() {
         return hotelList;

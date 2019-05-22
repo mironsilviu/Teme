@@ -5,7 +5,6 @@ import model.person.Person;
 
 public class HotelManager extends Person {
 
-
     @Override
     public final void setLocation(Location location) {
         super.location = location;

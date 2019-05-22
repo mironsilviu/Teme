@@ -5,7 +5,6 @@ import model.hotel.Location;
 
 import java.io.Serializable;
 
-
 public abstract class Person implements Serializable {
     @Getter
     private String firstName;

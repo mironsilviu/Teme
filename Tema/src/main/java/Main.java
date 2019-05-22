@@ -1,20 +1,27 @@
+import model.Function;
 import model.hotel.Hotel;
 import model.hotel.Location;
 import model.hotel.Room;
+import model.hotel.TypeOfRoom;
 import model.person.Client;
 import model.person.Employee;
 import model.person.Gender;
+import model.person.Person;
 import org.apache.log4j.Logger;
 import repository.ClientRepository;
 import repository.EmployeeRepository;
 import repository.HotelRepository;
+import repository.RoomRepository;
 import service.ClientService;
 import service.EmployeeService;
 import service.HotelService;
+import service.RoomService;
 import service.exception.ValidationException;
 
-
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Main {
 
@@ -24,41 +31,52 @@ public class Main {
 
 
         Client client1 = new Client("Silviu", "Miron", 189072538, "qwerty");
-        Client client2 = new Client("Alexandru", "Popovici", 1896542545,
+        Client client2 = new Client("Alexandru", "Popovici", 189072538,
                 "12345678", new Location("Mihai Viteazu", 4, "Sibiu"));
         client1.setLocation(new Location("Eremia Grigorescu", 126, "Cluj"));
         client1.setGender(Gender.MALE);
 
         Hotel hilton = new Hotel("Hilton", new Location("Memo", 5, "Cluj"));
-        hilton.setRoom(new Room(15, 25));
+        Room hiltonSingleRoom = new Room("Single Room", TypeOfRoom.SINGLE_ROOM);
+        Room hiltonDoubleRoom = new Room("Double Room", TypeOfRoom.DOUBLE_ROOM);
         Hotel magnolia = new Hotel("Magnolia", new Location("Grigorescu", 10, "Cluj"));
-        magnolia.setRoom(new Room(15, 20));
+        Room magnoliaSingleRoom = new Room("Single Room", TypeOfRoom.SINGLE_ROOM);
 
+        RoomRepository roomRepository = new RoomRepository();
+        RoomService roomServiceHilton = new RoomService(roomRepository);
+        try {
+            roomServiceHilton.validateAndAddRoom(hiltonSingleRoom, 2);
+        } catch (ValidationException e) {
+            logger.error(e.displayError(), e);
+        }
+        try {
+            roomServiceHilton.validateAndAddRoom(hiltonDoubleRoom, 2);
+        } catch (ValidationException e) {
+            logger.error(e.displayError(), e);
+        }
+        hilton.setRooms(roomServiceHilton.getList());
         Employee employee1 = new Employee(hilton, "Cristian", "Avram", "Reception", 1500);
 
-        logger.info(hilton.toString());
-        logger.info(client1.toString());
-        logger.info(client2.getAddress());
+//        logger.info(hilton.toString());
+//        logger.info(client1.toString());
+//        logger.info(client2.getAddress());
 
         HotelRepository hotelRepository = new HotelRepository();
         HotelService hotelService = new HotelService(hotelRepository);
 
         hotelService.validateAndAddHotel(hilton);
-        hotelService.validateAndAddHotel(magnolia);
+        //hotelService.validateAndAddHotel(magnolia);
 
-        for (Hotel hotel : hotelService.getHotels()) {
-            logger.info(hotel.getName());
-            logger.info(hotel.getFreeRooms());
-        }
+//        for (Hotel hotel : hotelService.getHotels()) {
+//            logger.info(hotel.getName());
+//        }
 
         hotelRepository.getHotelByCity("Cluj");
-
         hotelRepository.getHotelByCity("Sibiu");
-
 
         EmployeeRepository employeeRepository = new EmployeeRepository();
         EmployeeService employeeService = new EmployeeService(employeeRepository);
-        // Employee employee2 = null;
+
         try {
             employeeService.validateAndAddEmployee(employee1);
         } catch (ValidationException e) {
@@ -82,95 +100,20 @@ public class Main {
             logger.error(e.displayError());
         }
 
+//        Function.addEmployeeToFile(employee1);
+//        Function.addClientToFile(client1);
+//        Function.addClientToSerializedFile(client1);
+//        Function.readClientFromSerializedFile();
 
-        try (BufferedWriter employeeIO = new BufferedWriter(new FileWriter("Employee.txt"))) {
-            String[] in = new String[3];
-            in[0] = employee1.getFirstName();
-            in[1] = employee1.getLastName();
-            in[2] = employee1.getPosition();
+        Function.hashSetClient();
+        Function.orderList();
+        Function.hotelMap();
 
-            for (int i = 0; i < 3; i++) {
-                employeeIO.write(in[i]);
-                employeeIO.write(", ");
-            }
+        List<? super Person> anyPerson = new ArrayList<>();
 
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-
-        }
-
-
-        FileWriter clientIO = null;
-
-        try {
-            clientIO = new FileWriter("out.txt");
-
-            String[] in = new String[3];
-            in[0] = client1.getFirstName();
-            in[1] = client1.getLastName();
-            in[2] = client1.getPassword();
-
-            for (int i = 0; i < 3; i++) {
-                clientIO.write(in[i]);
-                clientIO.write(", ");
-            }
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-
-        } finally {
-            if (clientIO != null) {
-                clientIO.close();
-            }
-        }
-
-//                try {
-//            clientService.validateAndAddClient(client3);
-//        } catch (ValidationException e) {
-//            logger.error(e.displayError(),e);
-//        }
-
-
-        try {
-
-            FileOutputStream f = new FileOutputStream("Client.txt");
-            ObjectOutputStream o = new ObjectOutputStream(f);
-
-
-
-            o.writeObject(client1);
-            o.writeObject(client2);
-
-            o.flush();
-            o.close();
-            f.close();
-
-
-            FileInputStream fi = new FileInputStream("Client.txt");
-            ObjectInputStream oi = new ObjectInputStream(fi);
-
-
-            Client clientReturn1 = (Client) oi.readObject();
-            Client clientReturn2 = (Client) oi.readObject();
-            oi.close();
-            fi.close();
-
-            System.out.println(clientReturn1.toString());
-            System.out.println(clientReturn2.toString());
-
-
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            System.out.println("Error initializing stream");
-        } catch (ClassNotFoundException e) {
-
-            e.printStackTrace();
-        }
-
+        anyPerson.add(employee1);
+        anyPerson.add(client1);
 
     }
+
 }

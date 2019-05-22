@@ -1,16 +1,14 @@
 package model.person;
 
-
 import lombok.Getter;
 import model.hotel.Hotel;
 import model.hotel.Location;
 
 public class Employee extends Person {
-@Getter
+    @Getter
     private String position;
     private int salary;
     Hotel workDetails;
-
 
     @Deprecated
     public Employee(String firstName, String lastName, String position, int salary) {
@@ -19,6 +17,7 @@ public class Employee extends Person {
         this.salary = salary;
 
     }
+
     public Employee(Hotel workDetails, String firstName, String lastName, String position, int salary) {
         super(firstName, lastName);
         this.position = position;
@@ -46,7 +45,6 @@ public class Employee extends Person {
     public String toString() {
         return "Name: " + getFirstName() + " " + getLastName();
     }
-
 
 
 }

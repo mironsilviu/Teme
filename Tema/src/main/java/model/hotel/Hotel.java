@@ -1,49 +1,37 @@
 package model.hotel;
 
-import model.Function;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * This class will help us to set a hotel with all the details that a hotel need in order to be added to the list of hotels
  */
-
 public class Hotel implements Serializable {
 
+    @Getter
     private final String name;
+    @Setter
     private int numberOfStars;
-    public Room room;
+    @Setter
+    @Getter
+    private List<Room> rooms = new ArrayList<>();
+    @Getter
+    private UUID uuid = UUID.randomUUID();
     public final Location location;
-    private static final long serialVersionUID = 1L;
+    //   private static final long serialVersionUID = 1L;
 
     public Hotel(String name, Location location) {
         this.location = location;
         this.name = name;
     }
 
-    public void setNumberOfStars(int numberOfStars) {
-        this.numberOfStars = numberOfStars;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public int getFreeRooms() {
-
-        int[] freeRooms = Function.freeRooms(this.room);
-        return freeRooms.length;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-
     @Override
     public String toString() {
         return "hotel: " + name + ", City " + location.getCity() + ", Street " + location.getStreet();
     }
-
 }
