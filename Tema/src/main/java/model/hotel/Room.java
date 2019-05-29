@@ -12,4 +12,12 @@ public class Room {
         this.nameOfTheRoom = nameOfTheRoom;
         this.typeOfRoom = typeOfRoom;
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "nameOfTheRoom='" + nameOfTheRoom + '\'' +
+                ", typeOfRoom=" + typeOfRoom +
+                '}';
+    }
 }

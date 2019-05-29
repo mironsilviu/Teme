@@ -12,7 +12,6 @@ public enum TypeOfRoom {
 
     TypeOfRoom(int personInARoom) {
         this.personInARoom = personInARoom;
-
     }
 
 }

@@ -1,7 +1,8 @@
 package service;
 
 import model.hotel.Hotel;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.HotelRepository;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * The Hotel Service Class help us to add or remove a hotel to the list and to check the list
  */
 public class HotelService {
-    private static Logger logger = Logger.getLogger(HotelService.class);
+    private static final Logger logger = LogManager.getLogger(HotelService.class);
     HotelRepository hotelRepository;
 
     public HotelService(HotelRepository hotelRepository) {

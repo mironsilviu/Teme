@@ -1,7 +1,8 @@
 package repository;
 
 import model.hotel.Hotel;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class HotelRepository implements IHotelRepository, Search {
 
-    private static Logger logger = Logger.getLogger(HotelRepository.class);
+    private static final Logger logger = LogManager.getLogger(HotelRepository.class);
     private List<Hotel> hotelList = new ArrayList<>();
 
     /**

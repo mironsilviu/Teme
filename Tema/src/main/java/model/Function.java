@@ -6,11 +6,18 @@ import model.hotel.Room;
 import model.hotel.TypeOfRoom;
 import model.person.Client;
 import model.person.Employee;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Function {
+
+    private static Logger logger = LogManager.getLogger(Function.class);
 
     public static void addClientToFile(Client client) throws IOException {
         FileWriter clientIO = null;
@@ -63,7 +70,7 @@ public class Function {
 
         try {
 
-            FileOutputStream f = new FileOutputStream("Client.txt");
+            FileOutputStream f = new FileOutputStream("Client.obj");
             ObjectOutputStream o = new ObjectOutputStream(f);
 
             o.writeObject(client);
@@ -73,9 +80,9 @@ public class Function {
             f.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            logger.info("File not found");
         } catch (IOException e) {
-            System.out.println("Error initializing stream");
+            logger.info("Error initializing stream");
         }
     }
 
@@ -83,7 +90,7 @@ public class Function {
 
         try {
 
-            FileInputStream fi = new FileInputStream("Client.txt");
+            FileInputStream fi = new FileInputStream("Client.obj");
             ObjectInputStream oi = new ObjectInputStream(fi);
 
             Client clientReturn1 = (Client) oi.readObject();
@@ -94,9 +101,9 @@ public class Function {
             System.out.println(clientReturn1.toString());
 
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            logger.info("File not found");
         } catch (IOException e) {
-            System.out.println("Error initializing stream");
+            logger.info("Error initializing stream");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -126,6 +133,7 @@ public class Function {
         Client client19 = new Client("Vetuta", "Miron", 189072536, "qwerty");
         Client client20 = new Client("Lucian", "Miron", 189072539, "qwerty");
 
+
         clientHashSet.add(client1);
         clientHashSet.add(client2);
         clientHashSet.add(client3);
@@ -147,7 +155,7 @@ public class Function {
         clientHashSet.add(client19);
         clientHashSet.add(client20);
 
-        System.out.println(clientHashSet.size());
+        logger.info(clientHashSet.size());
     }
 
     public static void orderList() {
@@ -174,20 +182,33 @@ public class Function {
         roomOrderdList.add(magnoliaTripleRoom);
         roomOrderdList.add(grandDoubleRoom);
         roomOrderdList.add(grandSuiteRoom);
+
+        Optional<Room> bigestRoom = roomOrderdList.stream()
+                .reduce((room1, room2) ->
+                        room1.getTypeOfRoom().getPersonInARoom() > room2.getTypeOfRoom().getPersonInARoom() ? room1 : room2);
+
+        bigestRoom.ifPresent(room -> logger.info(room.getNameOfTheRoom()));
+
         Comparator<Room> sortByNameAscending = (Room room1, Room room2) -> room1.getNameOfTheRoom().compareTo(room2.getNameOfTheRoom());
+
+        List<Room> roomStream = roomOrderdList.stream()
+                .filter(room -> room.getNameOfTheRoom().contains("e"))
+                .sorted(sortByNameAscending)
+                .collect(Collectors.toList());
+        roomStream.forEach(room -> logger.info(room.getNameOfTheRoom()));
 
         List<Room> roomSortedList = roomOrderdList;
         roomSortedList.sort(sortByNameAscending);
-        System.out.println("Ascending: ");
-        roomSortedList.forEach(room -> System.out.println(room.getNameOfTheRoom()));
+        logger.info("Ascending: ");
+        roomSortedList.forEach(room -> logger.info(room.getNameOfTheRoom()));
         Comparator<Room> sortByNameDescending = (Room room1, Room room2) -> room2.getNameOfTheRoom().compareTo(room1.getNameOfTheRoom());
         roomSortedList.sort(sortByNameDescending);
-        System.out.println("Descending");
-        roomSortedList.forEach(room -> System.out.println(room.getNameOfTheRoom()));
+        logger.info("Descending");
+        roomSortedList.forEach(room -> logger.info(room.getNameOfTheRoom()));
     }
 
     public static void hotelMap() {
-        HashMap<UUID, List<Room>> hotleMap = new HashMap<>();
+        HashMap<UUID, List<Room>> hotelMap = new HashMap<>();
 
         Hotel hilton = new Hotel("Hilton", new Location("Memo", 5, "Cluj"));
         Hotel magnolia = new Hotel("Magnolia", new Location("Grigorescu", 10, "Cluj"));
@@ -219,8 +240,10 @@ public class Function {
         grandRooms.add(grandDoubleRoom);
         grandRooms.add(grandSuiteRoom);
 
-        hotleMap.put(hilton.getUuid(), hiltonRooms);
-        hotleMap.put(magnolia.getUuid(), magnoliaRooms);
-        hotleMap.put(grand.getUuid(), grandRooms);
+        hotelMap.put(hilton.getUuid(), hiltonRooms);
+        hotelMap.put(magnolia.getUuid(), magnoliaRooms);
+        hotelMap.put(grand.getUuid(), grandRooms);
+
+        logger.info(hotelMap);
     }
 }

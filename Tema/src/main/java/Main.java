@@ -7,7 +7,8 @@ import model.person.Client;
 import model.person.Employee;
 import model.person.Gender;
 import model.person.Person;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.ClientRepository;
 import repository.EmployeeRepository;
 import repository.HotelRepository;
@@ -21,11 +22,10 @@ import service.exception.ValidationException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Main {
 
-    private static Logger logger = Logger.getLogger(Main.class);
+    private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException {
 
@@ -35,6 +35,14 @@ public class Main {
                 "12345678", new Location("Mihai Viteazu", 4, "Sibiu"));
         client1.setLocation(new Location("Eremia Grigorescu", 126, "Cluj"));
         client1.setGender(Gender.MALE);
+        Client client3 = new Client("djnas", "sdasmm", 17623851, "aaaaa");
+
+        Location client3Location = new Location.LocationBuilder()
+                .city("Cluj")
+                .number(5)
+                .street("djahs")
+                .build();
+        client3.setLocation(client3Location);
 
         Hotel hilton = new Hotel("Hilton", new Location("Memo", 5, "Cluj"));
         Room hiltonSingleRoom = new Room("Single Room", TypeOfRoom.SINGLE_ROOM);
@@ -57,9 +65,9 @@ public class Main {
         hilton.setRooms(roomServiceHilton.getList());
         Employee employee1 = new Employee(hilton, "Cristian", "Avram", "Reception", 1500);
 
-//        logger.info(hilton.toString());
-//        logger.info(client1.toString());
-//        logger.info(client2.getAddress());
+        logger.info(hilton.toString());
+        logger.info(client1.toString());
+        logger.info(client2.getAddress());
 
         HotelRepository hotelRepository = new HotelRepository();
         HotelService hotelService = new HotelService(hotelRepository);
@@ -104,10 +112,10 @@ public class Main {
 //        Function.addClientToFile(client1);
 //        Function.addClientToSerializedFile(client1);
 //        Function.readClientFromSerializedFile();
-
-        Function.hashSetClient();
-        Function.orderList();
-        Function.hotelMap();
+//
+//        Function.hashSetClient();
+//        Function.orderList();
+//        Function.hotelMap();
 
         List<? super Person> anyPerson = new ArrayList<>();
 
