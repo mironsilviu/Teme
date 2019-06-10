@@ -34,4 +34,6 @@ public class Hotel implements Serializable {
     public String toString() {
         return "hotel: " + name + ", City " + location.getCity() + ", Street " + location.getStreet();
     }
+
+
 }

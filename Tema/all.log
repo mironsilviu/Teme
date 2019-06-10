@@ -1,6 +1,0 @@
-2019-05-29 21:52:50.059 [main] INFO  Main - hotel: Hilton, City Cluj, Street Memo
-2019-05-29 21:52:50.075 [main] INFO  Main - Name: Silviu Miron
-2019-05-29 21:52:50.075 [main] INFO  Main - Street Mihai Viteazu, number 4, City Sibiu
-2019-05-29 21:52:50.075 [main] DEBUG repository.HotelRepository - Hilton
-2019-05-29 21:52:50.075 [main] DEBUG repository.HotelRepository - NO HOTEL AVAILABLE IN THIS CITY
-2019-05-29 21:52:50.075 [main] INFO  model.Function - {9267dcad-a33f-44cf-a411-c3ccc17ab64c=[Room{nameOfTheRoom='Double Room', typeOfRoom=DOUBLE_ROOM}, Room{nameOfTheRoom='Suite Double Room', typeOfRoom=DOUBLE_ROOM}], c788371e-f838-4f99-a277-42c8789fc6a4=[Room{nameOfTheRoom='Double Room Apartment', typeOfRoom=DOUBLE_ROOM}, Room{nameOfTheRoom='Double Room', typeOfRoom=DOUBLE_ROOM}, Room{nameOfTheRoom='Kingsize Double Room', typeOfRoom=DOUBLE_ROOM}, Room{nameOfTheRoom='Single Room', typeOfRoom=SINGLE_ROOM}, Room{nameOfTheRoom='Triple Room', typeOfRoom=TRIPLE_ROOM}, Room{nameOfTheRoom='Suite Double Room', typeOfRoom=DOUBLE_ROOM}], e8100d7e-0384-49fe-8f48-11c4089aafc5=[Room{nameOfTheRoom='Double Room', typeOfRoom=DOUBLE_ROOM}, Room{nameOfTheRoom='Single Room', typeOfRoom=SINGLE_ROOM}]}

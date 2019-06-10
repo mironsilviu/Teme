@@ -1,8 +1,6 @@
-import model.Function;
-import model.hotel.Hotel;
-import model.hotel.Location;
-import model.hotel.Room;
-import model.hotel.TypeOfRoom;
+import booking.BookingThread;
+import booking.HotelStatisticsThread;
+import model.hotel.*;
 import model.person.Client;
 import model.person.Employee;
 import model.person.Gender;
@@ -20,6 +18,9 @@ import service.RoomService;
 import service.exception.ValidationException;
 
 import java.io.*;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class Main {
 
     private static final Logger logger = LogManager.getLogger(Main.class);
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
 
 
         Client client1 = new Client("Silviu", "Miron", 189072538, "qwerty");
@@ -49,6 +50,30 @@ public class Main {
         Room hiltonDoubleRoom = new Room("Double Room", TypeOfRoom.DOUBLE_ROOM);
         Hotel magnolia = new Hotel("Magnolia", new Location("Grigorescu", 10, "Cluj"));
         Room magnoliaSingleRoom = new Room("Single Room", TypeOfRoom.SINGLE_ROOM);
+
+
+        LocalDateTime checkInDateClient1 = LocalDateTime.parse("2019-06-12T10:15:12");
+        LocalDateTime checkInDateClient2 = LocalDateTime.parse("2019-07-25T13:12:25");
+        LocalDateTime checkInDateClient3 = LocalDateTime.parse("2019-09-28T15:26:31");
+        LocalDateTime checkOutDateClient1 = LocalDateTime.parse("2019-08-23T12:26:23");
+        LocalDateTime checkOutDateClient2 = LocalDateTime.parse("2019-07-29T15:12:31");
+        LocalDateTime checkOutDateClient3 = LocalDateTime.parse("2019-10-05T14:15:15");
+
+        BookingDetails bookingDetailsClient1 =new BookingDetails(hilton,client1,checkInDateClient1,checkOutDateClient1,5);
+        BookingDetails bookingDetailsClient2 =new BookingDetails(magnolia,client2,checkInDateClient2,checkOutDateClient2,2);
+        BookingDetails bookingDetailsClient3 =new BookingDetails(hilton,client3,checkInDateClient3,checkOutDateClient3,3);
+
+        BookingThread bookingThreadClient1 = new BookingThread(bookingDetailsClient1);
+        bookingThreadClient1.start();
+        BookingThread bookingThreadClient2 = new BookingThread(bookingDetailsClient2);
+        bookingThreadClient2.start();
+        BookingThread bookingThreadClient3 = new BookingThread(bookingDetailsClient3);
+        bookingThreadClient3.start();
+
+        HotelStatisticsThread hotelStatisticsThread = new HotelStatisticsThread();
+        hotelStatisticsThread.start();
+
+        hotelStatisticsThread.showStatisticsForDay(LocalDate.parse("2019-06-12"));
 
         RoomRepository roomRepository = new RoomRepository();
         RoomService roomServiceHilton = new RoomService(roomRepository);
