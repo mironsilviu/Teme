@@ -26,8 +26,10 @@ public class BookingThread extends Thread {
             logger.error("Check in date is after check out date: " + bookingDetails);
             return;
         }
+        logger.info("Booking details received: {}", bookingDetails);
         BookingRepository bookingRepository = new BookingRepository();
         BookingService bookingService = new BookingService(bookingRepository);
         bookingService.add(bookingDetails);
+
     }
 }

@@ -17,6 +17,7 @@ public class HotelStatisticsThread extends Thread {
     private static Logger logger = LogManager.getLogger(HotelStatisticsThread.class);
     private Map<UUID, List<BookingDetails>> bookingDetailsMap = new HashMap<>();
     private Map<UUID, HotelStatistics> hotelStatisticsMap = new HashMap<>();
+    private LocalDate dateToDisplayStatistics;
 
     @Override
     public void run() {
@@ -42,8 +43,9 @@ public class HotelStatisticsThread extends Thread {
                 hotelStatistics.addBooking(bookingDetails);
 
             }
+            showStatisticsForDay(this.dateToDisplayStatistics);
             try {
-                Thread.sleep(5000L);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -52,15 +54,20 @@ public class HotelStatisticsThread extends Thread {
 
     }
 
-    public void showStatisticsForDay(LocalDate date){
+    public void startStatistics(LocalDate date) {
+        this.dateToDisplayStatistics = date;
+        start();
+    }
+
+    public void showStatisticsForDay(LocalDate date) {
         hotelStatisticsMap.forEach((key, value) -> {
             Hotel hotel = value.hotel;
             String hotelName = hotel.getName();
             int numberOfClientsForDate = value.numberOfClientsForDate(date);
             int numberOfClientsForDateBeforeTwelve = value.numberOfClientsForDateBeforeTwelve(date);
             logger.info("Hotel: " + hotelName + " has for: " + date + " a number of: "
-                         + numberOfClientsForDate + " clients from which "
-                         + numberOfClientsForDateBeforeTwelve + " arrived before twelve");
+                    + numberOfClientsForDate + " clients from which "
+                    + numberOfClientsForDateBeforeTwelve + " arrived before twelve");
         });
     }
 
@@ -91,14 +98,15 @@ public class HotelStatisticsThread extends Thread {
             }
             return numberOfPersonForDate;
         }
+
         public int numberOfClientsForDateBeforeTwelve(LocalDate localDate) {
-            LocalDateTime localDateTime = localDate.atTime(12,0,0);
+            LocalDateTime localDateTime = localDate.atTime(12, 0, 0);
 
             List<BookingDetails> bookingDetailsForDate = clients.get(localDate);
             int numberOfPersonForDateTime = 0;
             if (bookingDetailsForDate != null && !bookingDetailsForDate.isEmpty()) {
                 numberOfPersonForDateTime = bookingDetailsForDate.stream()
-                        .filter(e->{
+                        .filter(e -> {
                             return localDateTime.isAfter(e.getCheckInDate());
                         })
                         .mapToInt(BookingDetails::getNumberOfPerson)

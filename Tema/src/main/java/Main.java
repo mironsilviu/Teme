@@ -1,5 +1,6 @@
 import booking.BookingThread;
 import booking.HotelStatisticsThread;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import model.hotel.*;
 import model.person.Client;
 import model.person.Employee;
@@ -18,11 +19,17 @@ import service.RoomService;
 import service.exception.ValidationException;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -51,7 +58,6 @@ public class Main {
         Hotel magnolia = new Hotel("Magnolia", new Location("Grigorescu", 10, "Cluj"));
         Room magnoliaSingleRoom = new Room("Single Room", TypeOfRoom.SINGLE_ROOM);
 
-
         LocalDateTime checkInDateClient1 = LocalDateTime.parse("2019-06-12T10:15:12");
         LocalDateTime checkInDateClient2 = LocalDateTime.parse("2019-07-25T13:12:25");
         LocalDateTime checkInDateClient3 = LocalDateTime.parse("2019-09-28T15:26:31");
@@ -63,17 +69,22 @@ public class Main {
         BookingDetails bookingDetailsClient2 =new BookingDetails(magnolia,client2,checkInDateClient2,checkOutDateClient2,2);
         BookingDetails bookingDetailsClient3 =new BookingDetails(hilton,client3,checkInDateClient3,checkOutDateClient3,3);
 
-        BookingThread bookingThreadClient1 = new BookingThread(bookingDetailsClient1);
-        bookingThreadClient1.start();
-        BookingThread bookingThreadClient2 = new BookingThread(bookingDetailsClient2);
-        bookingThreadClient2.start();
-        BookingThread bookingThreadClient3 = new BookingThread(bookingDetailsClient3);
-        bookingThreadClient3.start();
-
         HotelStatisticsThread hotelStatisticsThread = new HotelStatisticsThread();
-        hotelStatisticsThread.start();
+        LocalDate date = LocalDate.parse("2019-06-12");
+        hotelStatisticsThread.startStatistics(date);
 
-        hotelStatisticsThread.showStatisticsForDay(LocalDate.parse("2019-06-12"));
+        ScheduledExecutorService service = new ScheduledThreadPoolExecutor(1);
+        BookingThread bookingThreadClient1 = new BookingThread(bookingDetailsClient1);
+        service.schedule(bookingThreadClient1, 6, TimeUnit.SECONDS);
+
+        BookingThread bookingThreadClient2 = new BookingThread(bookingDetailsClient2);
+        service.schedule(bookingThreadClient2, 10, TimeUnit.SECONDS);
+
+        BookingThread bookingThreadClient3 = new BookingThread(bookingDetailsClient3);
+        service.schedule(bookingThreadClient3, 15, TimeUnit.SECONDS);
+
+
+
 
         RoomRepository roomRepository = new RoomRepository();
         RoomService roomServiceHilton = new RoomService(roomRepository);
@@ -147,6 +158,17 @@ public class Main {
         anyPerson.add(employee1);
         anyPerson.add(client1);
 
+
+        Integer max = Stream.of(15, 12, 31, 51, 87, 9)
+                .max(Comparator.comparing(Integer::valueOf))
+                .get();
+
+        Integer min = Stream.of(15, 12, 31, 51, 87, 9)
+                .min(Comparator.comparing(Integer::valueOf))
+                .get();
+
+        System.out.println(min);
+        System.out.println(max);
     }
 
 }
