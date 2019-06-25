@@ -1,18 +1,31 @@
 package model.person;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import model.hotel.Location;
 
 import java.util.Objects;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
 public class Client extends Person {
 
     private long cnp;
     private static final long serialVersionUID = 1L;
+    private boolean accommodated;
+    private String password;
+    private int personID;
+    private String postingDate;
 
-    @Getter
-    private final String password;
+    public Client(int personID, String firstName, String lastName, int cnp, boolean accommodated, String postingDate) {
+        super(firstName, lastName);
+        this.personID = personID;
+        this.cnp = cnp;
+        this.accommodated = accommodated;
+        this.postingDate = postingDate;
+    }
 
     public Client(String firstName, String lastName, long cnp, String password) {
         super(firstName, lastName);
@@ -57,6 +70,7 @@ public class Client extends Person {
 
     @Override
     public String toString() {
-        return "Name: " + getFirstName() + " " + getLastName();
+        return "ID: " + personID + " Name: " + getFirstName() + " " + getLastName() + ", cnp: " + cnp + ", accommodated: "
+                + accommodated + ", accommodation date :" + postingDate;
     }
 }

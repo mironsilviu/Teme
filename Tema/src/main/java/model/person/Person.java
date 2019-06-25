@@ -1,17 +1,21 @@
 package model.person;
 
 import lombok.Getter;
+import lombok.Setter;
 import model.hotel.Location;
 
 import java.io.Serializable;
-
+@Getter
+@Setter
 public abstract class Person implements Serializable {
-    @Getter
+
     private String firstName;
-    @Getter
     private String lastName;
     protected Location location;
     protected Gender gender;
+
+    protected Person() {
+    }
 
     public abstract void setLocation(Location location);
 

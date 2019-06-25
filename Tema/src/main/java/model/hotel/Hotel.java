@@ -1,6 +1,7 @@
 package model.hotel;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.util.UUID;
 /**
  * This class will help us to set a hotel with all the details that a hotel need in order to be added to the list of hotels
  */
+
 public class Hotel implements Serializable {
 
     @Getter
